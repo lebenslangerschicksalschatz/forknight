@@ -25,6 +25,13 @@ img {
   background-color: $light;
 }
 
+.loader svg {
+  margin: auto; 
+  background: none; 
+  display: block; 
+  shape-rendering: auto;
+}
+
 button:focus, input:focus, a:focus {
     outline: none;
 }

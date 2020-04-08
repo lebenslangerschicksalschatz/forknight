@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import {Link} from "react-router-dom";
 import renderHTML from 'react-render-html';
-import { WORDPRESS_URL, POSTS_ENDPOINT } from "../../const"
+import { WORDPRESS_URL, POSTS_ENDPOINT } from "../../const";
+import Loader from '../Loader';
 
 const Home = (props) => {
     useEffect (() => {
@@ -13,7 +15,7 @@ const Home = (props) => {
     async function fetchPosts() {
         let url = WORDPRESS_URL+POSTS_ENDPOINT;
         setLoading(true);
-        const fetchPosts = await fetch(`${url}`);
+        const fetchPosts = await fetch(url);
         const data = await fetchPosts.json();
         setPosts(data);
         setLoading(false);
@@ -22,7 +24,7 @@ const Home = (props) => {
 
     if (loading){
         return (
-            <h2>Loading..</h2>
+            <Loader/>
         )
     }
     return (
@@ -34,7 +36,9 @@ const Home = (props) => {
                     posts.map((post) => {                     
                         return (
                             <div key={post.id} className="post">
-                                <h3 className="post__title">{post.title.rendered}</h3>
+                                <Link key={post.id} to={`/post/${post.id}`} className="post__title">
+                                    {post.title.rendered}
+                                </Link>
                                 <div className="post__img">                                    
                                     <img src={post.featured_image_src} alt="Featured" />
                                 </div>
@@ -50,6 +54,5 @@ const Home = (props) => {
         </section>
     )   
 }
-
 
 export default Home;

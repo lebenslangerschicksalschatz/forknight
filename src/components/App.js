@@ -9,6 +9,7 @@ import {
 import Home from './Home/Home';
 import Categories from './Categories/Categories';
 import About from './About/About';
+import Single from './Single';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route exact path="/" component={Home}/>
           <Route path="/categories" component={Categories}/>
           <Route path="/about" component={About}/>
+          <Route path="/post/:id" component={Single}/>
         </main>
     </HashRouter>
   );
