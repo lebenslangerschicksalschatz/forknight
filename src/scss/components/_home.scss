@@ -1,0 +1,30 @@
+.home {
+    width: 100%;
+    font-family: $primary;
+}
+
+.posts {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.post {
+    width: 27%;
+    margin: 2%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    &__title {
+        font-size: 18px;
+    }
+    &__content {
+        font-size: 16px;
+    }
+    &__img {
+        width: 100%;
+        max-width: 500px;
+    }
+}
