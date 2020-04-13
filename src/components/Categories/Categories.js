@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Categories = (props) => {
+const Categories = () => {
     return (
         <div>
             Categories page content

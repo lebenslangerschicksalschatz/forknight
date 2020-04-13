@@ -5,35 +5,36 @@ import Loader from './Loader';
 
 const Single = ({match}) => {
     useEffect (() => {
-        fetchSingle();
+        fetchPost();
     }, []);
 
-    const [single, setSingle] = useState({});
+    const [post, setPost] = useState({});
     const [loading, setLoading] = useState(false);
 
-    async function fetchSingle() {
+    async function fetchPost() {
         let url = WORDPRESS_URL+POSTS_ENDPOINT+match.params.id;
-        const fetchSingle = await fetch(url);
-        const data = await fetchSingle.json();
-        setSingle(data);
-        setLoading(false);        
-    }
-
-    console.log(single);
-    
+        const fetchPost = await fetch(url);
+        const data = await fetchPost.json();
+        setPost(data);
+        setLoading(false);
+        console.log(data);
+    }    
     
     return (        
         <div className="single">
             {
-                loading || Object.keys(single).length === 0
+                loading || Object.keys(post).length === 0
                 ? <Loader/>
                 : <div className="wrapper">
-                    <h2 className="single__title">{single.title.rendered}</h2>
+                    <h2 className="single__title">{post.title.rendered}</h2>
+                    <div className="single__img">
+                        <img src={post.featured_image_src} alt="Featured"/>                        
+                    </div>
+                    <div className="single__content">{renderHTML(post.content.rendered)}</div>
                 </div>                 
             }            
         </div>
     )
-    
 }
 
 export default Single;

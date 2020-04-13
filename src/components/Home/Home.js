@@ -4,7 +4,7 @@ import renderHTML from 'react-render-html';
 import { WORDPRESS_URL, POSTS_ENDPOINT } from "../../const";
 import Loader from '../Loader';
 
-const Home = (props) => {
+const Home = () => {
     useEffect (() => {
         fetchPosts();
     }, []);
@@ -30,24 +30,24 @@ const Home = (props) => {
     return (
         <section id="home" className="home">
             <div className="wrapper">
-                <h2 className="home__title">Latest Posts</h2>        
+                <h2 className="home__title">Останні Пости</h2>        
                 <div className="posts">
                 {
-                    posts.map((post) => {                     
-                        return (
-                            <div key={post.id} className="post">
-                                <Link key={post.id} to={`/post/${post.id}`} className="post__title">
-                                    {post.title.rendered}
-                                </Link>
-                                <div className="post__img">                                    
-                                    <img src={post.featured_image_src} alt="Featured" />
-                                </div>
-                                <div className="post__content">
-                                    {renderHTML(post.excerpt.rendered)}
-                                </div>
-                            </div>                     
-                        )                  
-                    })
+                posts.map((post) => {                     
+                    return (
+                        <div key={post.id} className="post">
+                            <Link key={post.id} to={`/post/${post.id}`} className="post__title">
+                                {post.title.rendered}
+                            </Link>
+                            <div className="post__img">                                    
+                                <img src={post.featured_image_src} alt="Featured" />
+                            </div>
+                            <div className="post__content">
+                                {renderHTML(post.excerpt.rendered)}
+                            </div>
+                        </div>                     
+                    )                  
+                })
                 }
                 </div>
             </div>  

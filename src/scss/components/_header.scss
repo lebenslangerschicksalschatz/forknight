@@ -1,33 +1,45 @@
 .header {
     width: 100%;
-    font-family: $primary;
 }
 
+//MAIN NAVIGATION
 .nav {
     width: 100%;
+    height: 80px;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
     position: fixed;  
     z-index: 100;  
     background-color: #ffffff;
+    font-family: $secondary;
     color: $dark;
     box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.4);
-    .wrapper {
-        height: 80px;
-        padding: 0;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-    &__list {
-        display: flex;
-    }
-    &__item {  
-        height: 60px;
-        padding: 15px;
+    &__left {
         display: flex;
         align-items: center;
-        position: relative;          
+    }
+    &__right {
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
         font-size: 15px;
         font-weight: 400;
         text-transform: uppercase;
+    }
+    &__list {
+        display: flex;    
+        margin-left: 20px;            
+        font-size: 15px;
+        font-weight: 400;
+        text-transform: uppercase;
+    }    
+    &__item {  
+        height: 50px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        position: relative;
         &::after {
             content: "";
             display: block;
@@ -35,10 +47,16 @@
             bottom: 0;
             left: 10%;
             width: 0;
-            height: 4px;
+            height: 2px;
             border-radius: 2px;
             background-color: $accent;
             transition: all .3s linear;
+        }
+        &:hover {
+            color: $accent;
+        }
+        &:hover::after {            
+            width: 80%;
         }
     }
     &__item.active {        
@@ -48,7 +66,130 @@
         }
     }
     &__logo {
-        margin-left: 15px;
+        display: flex;
+        align-items: center;
+        font-family: $primary;
+        font-size: 18px;
+        text-transform: lowercase;
+        font-weight: 600;
+        svg {
+            margin: 0 15px;
+            height: 50px;
+        }
+        svg, span {
+            transition: all .3s ease-in-out;
+        }
+        &:hover {
+            color: $accent;
+        }
+    }    
+}
+
+//LOGIN BUTTON+FORM
+.login {
+    position: relative;
+    height: 50px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 10%;
+        width: 0;
+        height: 2px;
+        border-radius: 2px;
+        background-color: $accent;
+        transition: all .3s linear;
     }
-    
+    &:hover {
+        color: $accent;
+    }
+    &:hover::after {            
+        width: 80%;
+    }    
+    &__modal {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;  
+        top: 0;
+        left: 0; 
+        transition: opacity .3s ease-in-out;   
+        background: radial-gradient(circle, rgba($orange, $alpha: 0.7) 0%, rgba($orange, $alpha: 0.5) 51%, rgba($orange, $alpha: 0.15) 100%);
+    }
+    &-form {
+        position: relative;
+        width: 400px; 
+        height: 300px;
+        border-radius: 5px;
+        padding: 60px 15px 30px 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: rgba($light, $alpha: 0.8);;
+        box-shadow: 0px 0px 20px 0px rgba($dark, $alpha: 0.5);
+        font-family: $secondary;
+        font-size: 16px;
+        font-weight: 400;       
+        color: $dark;        
+        &__inputs {
+            display: flex;
+            flex-direction: column;
+            input {
+                height: 40px;
+                width: 100%;
+                margin-bottom: 15px;
+                padding: 0 15px;
+                border: 1px solid $dark;
+                &:hover {
+                    color: $accent;
+                    border: 1px solid $accent;
+                }
+                &:hover::placeholder {
+                    color: $accent;
+                }
+                &:focus {
+                    color: $accent;
+                    border: 1px solid $accent;
+                }
+                &:focus::placeholder {
+                    color: $accent;
+                }
+            }
+        }
+    }
+    &__close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        cursor: pointer;
+        svg {
+            height: 25px;
+            color: $dark;
+            transition: all .3s ease-in-out;
+        }
+        &:hover svg {
+            color: $accent;
+        }
+    }
+}
+
+.login-form.hidden {
+    animation: bounceOutDown 1s ease-in-out;
+}
+.login-form.shown {
+    animation: bounceInDown 1s ease-in-out;
+}
+
+.login__modal.shown {
+    opacity: 1;
+}
+.login__modal.hidden {
+    opacity: 0;
 }
