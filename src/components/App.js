@@ -9,9 +9,9 @@ import {
 import Home from './Home/Home';
 import Categories from './Categories/Categories';
 import About from './About/About';
-import Single from './Single';
-import Login from './Login';
-import Dashboard from './Dashboard';
+import Single from './Single/Single';
+import UserAuth from './UserAuth/UserAuth';
+import Dashboard from './Dashboard/Dashboard';
 
 function App() {
   return (
@@ -33,10 +33,7 @@ function App() {
               </ul>
             </div>
             <div className="nav__right">
-              <div className="search-btn">
-                search
-              </div>
-              <Login />
+              <UserAuth />
             </div>
           </nav>
         </header>

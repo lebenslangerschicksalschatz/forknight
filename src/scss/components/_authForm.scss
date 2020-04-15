@@ -1,0 +1,156 @@
+//AUTH BUTTON+FORM
+.auth {
+    position: relative;
+    height: 50px;
+    padding: 15px 5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 10%;
+        width: 0;
+        height: 2px;
+        border-radius: 2px;
+        background-color: $accent;
+        transition: all .3s linear;
+    }
+    &:hover {
+        color: $accent;
+    }
+    &:hover::after {            
+        width: 80%;
+    }    
+    &__modal {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;  
+        top: 0;
+        left: 0; 
+        transition: opacity .3s ease-in-out;   
+        background: radial-gradient(circle, rgba($orange, $alpha: 0.7) 0%, rgba($orange, $alpha: 0.5) 51%, rgba($orange, $alpha: 0.15) 100%);
+    }
+    &__wrap {
+        position: relative;
+        width: 400px; 
+        height: auto;
+        padding: 60px 15px 30px 15px;
+        border-radius: 5px;  
+        background-color: rgba($light, $alpha: 0.8);
+        box-shadow: 0px 0px 20px 0px rgba($dark, $alpha: 0.5);
+    }
+    &-form {        
+        width: 100%; 
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-family: $secondary;
+        font-size: 16px;
+        font-weight: 400;       
+        color: $dark;        
+        &__inputs {
+            display: flex;
+            flex-direction: column;
+            input {
+                height: 40px;
+                width: 100%;
+                margin-bottom: 15px;
+                padding: 0 15px;
+                border: 1px solid $dark;
+                border-radius: 5px;
+                &:hover {
+                    color: $accent;
+                    border: 1px solid $accent;
+                }
+                &:hover::placeholder {
+                    color: $accent;
+                }
+                &:focus {
+                    color: $accent;
+                    border: 1px solid $accent;
+                }
+                &:focus::placeholder {
+                    color: $accent;
+                }
+            }
+        }
+    }
+    &__close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        cursor: pointer;
+        svg {
+            height: 25px;
+            color: $dark;
+            transition: all .3s ease-in-out;
+        }
+        &:hover svg {
+            color: $accent;
+        }
+    }
+}
+
+.auth__wrap.hidden {
+    animation: bounceOutDown 1s ease-in-out;
+}
+.auth__wrap.shown {
+    animation: bounceInDown 1s ease-in-out;
+}
+
+.auth__modal.shown {
+    opacity: 1;
+}
+.auth__modal.hidden {
+    opacity: 0;
+}
+
+//FORMS TABS
+.forms {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.tab {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 50%;
+    border-radius: 5px;
+    padding: 10px 0;
+    cursor: pointer;
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 10%;
+        width: 0;
+        height: 2px;
+        border-radius: 2px;
+        background-color: $accent;
+        transition: all .3s linear;
+    }
+    &:hover::after {            
+        width: 80%;
+    }
+    &:hover {
+        color: $accent;
+    }
+
+}
+
+.tab.selected {
+    background-color: rgba($color: $accent, $alpha: 1.0);
+    color: #ffffff;
+}

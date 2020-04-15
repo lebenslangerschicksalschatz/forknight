@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import renderHTML from 'react-render-html';
 import { WORDPRESS_URL, POSTS_ENDPOINT } from "../const";
-import Loader from './Loader';
+import Loader from '../Loader';
 
 const Single = ({match}) => {
     useEffect (() => {
