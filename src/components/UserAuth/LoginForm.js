@@ -29,14 +29,13 @@ const LoginForm = ({ parentLoggedIn, parentResCode }) => {
 
             localStorage.setItem('token', res.token);
             localStorage.setItem('username', res.user_display_name);
+
+            parentLoggedIn(true);
         });
     }
     
     function onSubmit(e) {        
         e.preventDefault();
-
-        parentResCode(1); 
-        setResCode(1);
 
         const loginData = {
             username: username,
@@ -44,7 +43,9 @@ const LoginForm = ({ parentLoggedIn, parentResCode }) => {
         }
 
         fetchLogin(loginData);
-        parentLoggedIn(true);
+
+        parentResCode(1); 
+        setResCode(1);
     }    
 
     return (                       
