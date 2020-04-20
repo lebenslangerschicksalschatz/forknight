@@ -101,6 +101,7 @@
 .auth__wrap.hidden {
     animation: bounceOutDown 1s ease-in-out;
 }
+
 .auth__wrap.shown {
     animation: bounceInDown 1s ease-in-out;
 }
@@ -108,8 +109,13 @@
 .auth__modal.shown {
     opacity: 1;
 }
+
 .auth__modal.hidden {
     opacity: 0;
+}
+
+.auth__wrap.failed {
+    animation: wobble 1s ease-in-out;
 }
 
 //FORMS TABS

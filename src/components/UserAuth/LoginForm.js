@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { WORDPRESS_URL, LOGIN_ENTRY } from "../const";
 
-const LoginForm = () => {
+const LoginForm = ({ parentLoggedIn, parentResCode }) => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [resCode, setResCode] = useState(0);    
 
-    function fetchLogin(loginData) {
+    function fetchLogin(data) {
         let url = WORDPRESS_URL+LOGIN_ENTRY;
         fetch(url, {
             method: 'POST',
-            body: JSON.stringify(loginData),
+            body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -19,26 +21,34 @@ const LoginForm = () => {
         .then(res => {
             console.log(res);
             if (res.token === undefined){
-                return;
+                setError(res.message);
+                parentResCode(res.code);            
+                setResCode(res.code);
+                return error;
             }
 
             localStorage.setItem('token', res.token);
-            localStorage.setItem('username', res.user_nicename);
+            localStorage.setItem('username', res.user_display_name);
         });
     }
     
-    function onSubmit() {
+    function onSubmit(e) {        
+        e.preventDefault();
+
+        parentResCode(1); 
+        setResCode(1);
 
         const loginData = {
             username: username,
             password: password
         }
 
-        fetchLogin(loginData)
+        fetchLogin(loginData);
+        parentLoggedIn(true);
     }    
 
     return (                       
-        <form className="auth-form" id="login" onSubmit={onSubmit} method="POST">                   
+        <form className="auth-form" id="login" onSubmit={(e) => onSubmit(e)} >                   
             <div className="auth-form__inputs">
                 <input 
                 type="text" 

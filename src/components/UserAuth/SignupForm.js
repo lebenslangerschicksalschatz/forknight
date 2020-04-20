@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { WORDPRESS_URL, LOGIN_ENTRY } from "../const";
+import { WORDPRESS_URL, CREATE_USER } from "../const";
 
-const SignupForm = () => {
-    const [userEmail, setUserEmail] = useState("");
+const SignupForm = ({ parentResCode }) => {
+    const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [resCode, setResCode] = useState(0);
 
-    function fetchSignup(signupData) {
-        let url = WORDPRESS_URL+LOGIN_ENTRY;
+    function fetchSignup(data) {
+        let url = WORDPRESS_URL+CREATE_USER;
         fetch(url, {
             method: 'POST',
-            body: JSON.stringify(signupData),
+            body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -18,36 +19,36 @@ const SignupForm = () => {
         .then(res => res.json())
         .then(res => {
             console.log(res);
-            if (res.token === undefined){
-                return;
-            }
-
-            localStorage.setItem('token', res.token);
-            localStorage.setItem('username', res.user_nicename);
+            parentResCode(res.code);            
+            setResCode(res.code);
         });
     }
 
-    function onSubmit() {
+    function onSubmit(e) {
+        e.preventDefault();
+
+        parentResCode(1); 
+        setResCode(1);
 
         const signupData = {
-            userEmail: userEmail,
             username: username,
+            email: email,
             password: password
         }
 
         fetchSignup(signupData);
-    } 
+    }
 
     return (                       
-        <form className="auth-form" id="signUp" onSubmit={onSubmit} method="POST">                   
+        <form className="auth-form" id="signUp" onSubmit={(e) => onSubmit(e)} method="POST">                   
             <div className="auth-form__inputs">
                 <input 
                 type="email" 
                 placeholder="Ваш email" 
                 autoComplete="off"
                 name="email"
-                value={userEmail}
-                onChange={(e) => setUserEmail(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 />
                 <input 
                 type="text" 
