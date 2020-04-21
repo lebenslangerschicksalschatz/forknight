@@ -30,7 +30,19 @@ const Single = ({match}) => {
                     <div className="single__img">
                         <img src={post.featured_image_src} alt="Featured"/>                        
                     </div>
+                    <div className="single__ingrs">{renderHTML(post.ingredients)}</div>
                     <div className="single__content">{renderHTML(post.content.rendered)}</div>
+                    <div className="single-slider">
+                    {
+                        post.photos.map((photo) => {
+                            return (
+                                <div key={photo.id} className="single-slider__item">
+                                    <img src={photo.guid} alt="recipe" />
+                                </div>
+                            )
+                        })
+                    }
+                    </div>
                 </div>                 
             }            
         </div>

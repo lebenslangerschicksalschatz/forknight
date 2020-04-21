@@ -24,6 +24,8 @@ const LoginForm = ({ parentLoggedIn, parentResCode }) => {
                 setError(res.message);
                 parentResCode(res.code);            
                 setResCode(res.code);
+                console.log(error);
+                console.log(resCode);
                 return error;
             }
 

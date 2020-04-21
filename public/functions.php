@@ -1,4 +1,7 @@
 <?php
+
+add_theme_support( 'post-thumbnails' );
+
 // Add various fields to the JSON output
 function forknight_register_fields() {
     // Add Author Name
