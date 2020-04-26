@@ -72,15 +72,19 @@ function wc_rest_user_endpoint_handler($request = null) {
     $password = sanitize_text_field($parameters['password']);
     $error = new WP_Error();
     if (empty($username)) {
-        $error->add(400, __("Username field 'username' is required.", 'wp-rest-user'), array('status' => 400));
+        $error->add(400, __("Заповніть необхідне поле", 'wp-rest-user'), array('status' => 400));
         return $error;
     }
     if (empty($email)) {
-        $error->add(401, __("Email field 'email' is required.", 'wp-rest-user'), array('status' => 400));
+        $error->add(401, __("Заповніть необхідне поле", 'wp-rest-user'), array('status' => 400));
         return $error;
     }
     if (empty($password)) {
-        $error->add(404, __("Password field 'password' is required.", 'wp-rest-user'), array('status' => 400));
+        $error->add(404, __("Заповніть необхідне поле", 'wp-rest-user'), array('status' => 400));
+        return $error;
+    }
+    if (username_exists($username)) {
+        $error->add(405, __("Користувач із @username '" . $username . "' уже існує", 'wp-rest-user'), array('status' => 400));
         return $error;
     }
     $user_id = username_exists($username);
@@ -93,12 +97,12 @@ function wc_rest_user_endpoint_handler($request = null) {
             $user->set_role('author');
             // Ger User Data (Non-Sensitive, Pass to front end.)
             $response['code'] = 200;
-            $response['message'] = __("User '" . $username . "' Registration was Successful", "wp-rest-user");
+            $response['message'] = __("Користувача '" . $username . "' було успішно зареєстровано", "wp-rest-user");
         } else {
             return $user_id;
         }
     } else {
-        $error->add(406, __("Email already exists, please try 'Reset Password'", 'wp-rest-user'), array('status' => 400));
+        $error->add(406, __("Даний email уже було використано для реєстрації", 'wp-rest-user'), array('status' => 400));
         return $error;
     }
     return new WP_REST_Response($response, 123);

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import { isLoggedIn } from "../utils";
@@ -12,6 +13,8 @@ const UserAuth = () => {
 
     const [selected, setSelected] = useState(0);
     const [resCode, setResCode] = useState(0);
+
+    const [error, setError] = useState("");
 
     function handleShowModalLogin() {
         setIsShown(true);      
@@ -28,7 +31,8 @@ const UserAuth = () => {
     function handleCloseModal() {
         setShowModal(false); 
         setTimeout(function(){ setIsShown(false); }, 1000);  
-        setResCode(0);      
+        setResCode(0); 
+        setError("");
     }
 
     function handleLogout() {
@@ -55,7 +59,11 @@ const UserAuth = () => {
         <>
         {
         loggedIn || isLoggedIn()
-        ? <div className="auth" id="logout" onClick={handleLogout}>вихід</div>
+        ? <>
+        <div className="auth" id="dashboard"><Link to={`/dashboard/${user}`}>{user}</Link></div>
+        <span>|</span>
+        <div className="auth" id="logout" onClick={handleLogout}>вихід</div>
+        </>
         : <>
         <div className="auth" id="login" onClick={handleShowModalLogin}>вхід</div>
         <span>|</span>
@@ -86,7 +94,8 @@ const UserAuth = () => {
                     selected === 0
                     ? <LoginForm 
                         parentLoggedIn={loggedIn => setLoggedIn(loggedIn)}
-                        parentResCode={resCode => setResCode(resCode)}/>
+                        parentResCode={resCode => setResCode(resCode)}
+                        parentError={error}/>
                     : <SignupForm parentResCode={resCode => setResCode(resCode)}/>
                     }
                 </div>
