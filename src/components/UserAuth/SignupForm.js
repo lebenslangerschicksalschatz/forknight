@@ -84,7 +84,6 @@ const SignupForm = ({ parentResCode }) => {
             parentResCode(400);
             setTimeout(function(){ parentResCode(1); }, 1000);  
         }
-
     }
 
     return (                       

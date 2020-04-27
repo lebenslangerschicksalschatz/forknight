@@ -48,6 +48,32 @@ function forknight_published_date( $object, $field_name, $request ) {
     return get_the_time('F j, Y');
 }
 
+// Random post endpoint
+add_action( 'rest_api_init', function () {
+    register_rest_route( 'wp/v2', '/any', array(
+        'methods'   =>  'GET',
+        'callback'  =>  'get_random',
+    ) );
+});
+
+function get_random() {
+    $posts = get_posts([
+        'post_type' => 'post', 
+        'orderby' => 'rand', 
+        'posts_per_page' => 1
+    ]);
+
+    $controller = new WP_REST_Posts_Controller('post');
+    $array = [];
+
+    foreach ( $posts as $post ) {
+        $data = $controller->prepare_item_for_response($post,$request);
+        $array[] = $controller->prepare_response_for_collection($data);
+    }
+
+    return $array;
+}
+
 add_action('rest_api_init', 'wp_rest_user_endpoints');
 /**
  * Register a new user

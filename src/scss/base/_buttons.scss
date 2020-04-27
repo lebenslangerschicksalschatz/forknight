@@ -19,3 +19,27 @@
         border: 1px solid $accent;
     }
 }
+
+.like-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: $dark;
+    cursor: pointer;
+    &__img {
+        height: 24px;
+        width: 24px;
+        margin-right: 10px;        
+    }
+    &__count {
+        font-family: $secondary;
+        font-size: 18px;
+        font-weight: 400;
+    }
+    &:hover {
+        color: $accent;
+    }
+    &:hover &__img {
+        animation: pulse .6s infinite;
+    }
+}
