@@ -72,15 +72,15 @@ function wc_rest_user_endpoint_handler($request = null) {
     $password = sanitize_text_field($parameters['password']);
     $error = new WP_Error();
     if (empty($username)) {
-        $error->add(400, __("Заповніть необхідне поле", 'wp-rest-user'), array('status' => 400));
+        $error->add(400, __("Потрібно ввести ваш username", 'wp-rest-user'), array('status' => 400));
         return $error;
     }
     if (empty($email)) {
-        $error->add(401, __("Заповніть необхідне поле", 'wp-rest-user'), array('status' => 400));
+        $error->add(401, __("Потрібно ввести ваш email", 'wp-rest-user'), array('status' => 400));
         return $error;
     }
     if (empty($password)) {
-        $error->add(404, __("Заповніть необхідне поле", 'wp-rest-user'), array('status' => 400));
+        $error->add(404, __("Потрібно ввести пароль", 'wp-rest-user'), array('status' => 400));
         return $error;
     }
     if (username_exists($username)) {
