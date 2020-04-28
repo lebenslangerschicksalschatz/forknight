@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { WORDPRESS_URL, LOGIN_ENTRY } from "../const";
 
-const LoginForm = ({ parentLoggedIn, parentResCode, parentError }) => {
+const LoginForm = ({ parentLoggedIn, parentResCode }) => {
     const [values, setValues] = useState({username: "", password: ""});
-    const [error, setError] = useState(parentError);
+    const [errors, setErrors] = useState({username: "", password: ""});
     
     function handleChange (e) {
         const { name, value } = e.target;
@@ -12,6 +12,33 @@ const LoginForm = ({ parentLoggedIn, parentResCode, parentError }) => {
             ...values,
             [name]: value
         })
+    }
+
+    function handleError(res) { 
+        let errors = {};
+
+        if (res.code === "[jwt_auth] invalid_username" || "[jwt_auth] invalid_email") {
+            errors.username = "Невірний @username або email, спробуйте ще";
+        }
+        if (res.code === "[jwt_auth] incorrect_password") {
+            errors.password = "Невірний пароль, спробуйте ще";
+        }
+        
+        setErrors(errors);    
+        parentResCode(res.data.status);
+        setTimeout(function(){ parentResCode(1); }, 1000);        
+    }
+
+    function validateForm(data) {
+        let errors = {};
+
+        if (data.username.length === 0) {           
+            errors.username = "Потрібно ввести ваш username або email";
+        }
+        if (data.password.length === 0) {            
+            errors.password = "Потрібно ввести пароль";
+        }
+        return errors;
     }
 
     function fetchLogin(data) {
@@ -27,60 +54,35 @@ const LoginForm = ({ parentLoggedIn, parentResCode, parentError }) => {
         .then(res => {
             console.log(res);
             if (res.token === undefined){
-                setError(res.code);
-                parentResCode(res.data.status);                
-                return error;
+                handleError(res);
+            } else {
+                localStorage.setItem('token', res.token);
+                localStorage.setItem('username', res.user_display_name);    
+                parentLoggedIn(true);
             }
 
-            localStorage.setItem('token', res.token);
-            localStorage.setItem('username', res.user_display_name);
-
-            parentLoggedIn(true);
         });
     }
     
     function onSubmit(e) {        
         e.preventDefault();
+        setErrors({});
 
-        const loginData = {
-            username: values.username,
-            password: values.password
-        }
+        validateForm(values)
 
-        fetchLogin(loginData);
-
-        parentResCode(1); 
+        if (Object.keys(validateForm(values)).length === 0) {
+            fetchLogin(values);            
+        } else {
+            setErrors(validateForm(values)); 
+            parentResCode(400);
+            setTimeout(function(){ parentResCode(1); }, 1000);  
+        } 
     } 
-
-    const errorCode = {
-        emptyUsername: "[jwt_auth] empty_username",
-        invalidUsername: "[jwt_auth] invalid_username",
-        invalidEmail: "[jwt_auth] invalid_email",
-        emptyPass: "[jwt_auth] empty_password",
-        invalidPass: "[jwt_auth] incorrect_password"
-    };
-    
-    function errorMessage(error) { 
-        if (error === errorCode.emptyUsername || error === errorCode.emptyPass) {
-            return "Заповніть необхідне поле"
-        }
-        if (error === errorCode.invalidUsername || error === errorCode.invalidEmail) {
-            return "Невірний @username або email, спробуйте ще"
-        }
-        if (error === errorCode.invalidPass) {
-            return "Невірний пароль, спробуйте ще"
-        }
-        return null;       
-    }
 
     return (                       
         <form className="auth-form" id="login" onSubmit={(e) => onSubmit(e)} >                   
             <div className="auth-form__inputs">
-                {error === errorCode.emptyPass 
-                || error === errorCode.invalidPass
-                    ? null 
-                    : <span className="auth-form__error">{errorMessage(error)}</span>
-                }
+                {errors.username && <span className="auth-form__error">{errors.username}</span>}
                 <input 
                 type="text" 
                 placeholder="Ваш @username або email" 
@@ -89,12 +91,7 @@ const LoginForm = ({ parentLoggedIn, parentResCode, parentError }) => {
                 value={values.username}
                 onChange={handleChange}
                 />
-                {error === errorCode.emptyUsername 
-                || error === errorCode.invalidUsername 
-                || error === errorCode.invalidEmail
-                    ? null 
-                    : <span className="auth-form__error">{errorMessage(error)}</span>
-                }
+                {errors.password && <span className="auth-form__error">{errors.password}</span>}
                 <input 
                 type="password" 
                 placeholder="Ваш пароль" 

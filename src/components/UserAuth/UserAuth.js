@@ -14,8 +14,6 @@ const UserAuth = () => {
     const [selected, setSelected] = useState(0);
     const [resCode, setResCode] = useState(0);
 
-    const [error, setError] = useState("");
-
     function handleShowModalLogin() {
         setIsShown(true);      
         setShowModal(true); 
@@ -32,7 +30,6 @@ const UserAuth = () => {
         setShowModal(false); 
         setTimeout(function(){ setIsShown(false); }, 1000);  
         setResCode(0); 
-        setError("");
     }
 
     function handleLogout() {
@@ -94,8 +91,7 @@ const UserAuth = () => {
                     selected === 0
                     ? <LoginForm 
                         parentLoggedIn={loggedIn => setLoggedIn(loggedIn)}
-                        parentResCode={resCode => setResCode(resCode)}
-                        parentError={error}/>
+                        parentResCode={resCode => setResCode(resCode)} />
                     : <SignupForm parentResCode={resCode => setResCode(resCode)}/>
                     }
                 </div>

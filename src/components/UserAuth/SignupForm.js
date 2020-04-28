@@ -36,21 +36,21 @@ const SignupForm = ({ parentResCode }) => {
         
         if (data.email.length === 0) {           
             errors.email = "Потрібно ввести ваш email";
-        } 
-        if (!/\S+@\S+\.\S+/.test(data.email)) {
+        } else if (!/\S+@\S+\.\S+/.test(data.email)) {
             errors.email = "Невірно введений email";
         }
+
         if (data.username.length === 0) {
             errors.username = "Потрібно ввести ваш username";
         }
+
         if (data.password.length === 0) {            
             errors.password = "Потрібно ввести пароль";
-        } 
-        if (data.password.length < 5 && data.password.length > 0){
+        } else if (data.password.length < 5 && data.password.length > 0){
             errors.password =  "Пароль має бути не менше 5 символів";
         }
 
-        return errors        
+        return errors;
     }
 
     function fetchSignup(data) {
