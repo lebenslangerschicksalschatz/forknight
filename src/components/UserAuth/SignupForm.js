@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { WORDPRESS_URL, CREATE_USER } from "../const";
 
-const SignupForm = ({ parentResCode }) => {
+const SignupForm = ({ parentResCode, parentSignedUp }) => {
     const [values, setValues] = useState({email: "", username: "", password: ""});    
     const [errors, setErrors] = useState({email: "", username: "", password: ""});
 
@@ -63,10 +63,11 @@ const SignupForm = ({ parentResCode }) => {
             }
         })
         .then(res => res.json())
-        .then(res => {
-            console.log(res);            
+        .then(res => {           
             if (res.code !== 200) {  
                 handleError(res);
+            } else {
+                parentSignedUp(res);
             }
         });
     }

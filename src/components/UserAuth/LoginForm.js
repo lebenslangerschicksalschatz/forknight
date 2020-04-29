@@ -7,7 +7,6 @@ const LoginForm = ({ parentLoggedIn, parentResCode }) => {
     
     function handleChange (e) {
         const { name, value } = e.target;
-
         setValues({
             ...values,
             [name]: value
@@ -52,7 +51,6 @@ const LoginForm = ({ parentLoggedIn, parentResCode }) => {
         })
         .then(res => res.json())
         .then(res => {
-            console.log(res);
             if (res.token === undefined){
                 handleError(res);
             } else {

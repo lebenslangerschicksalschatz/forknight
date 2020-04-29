@@ -6,6 +6,8 @@ $orange: #f2be74;
 // FONTS
 $primary: 'Roboto Mono', monospace;
 $secondary: 'Roboto Condensed', sans-serif;
+$creamy-bg: radial-gradient(circle, rgba($orange, $alpha: 0.8) 0%, rgba($orange, $alpha: 0.6) 51%, rgba($orange, $alpha: 0.2) 100%);
+$creamy-bg-thick: radial-gradient(circle, rgba($orange, $alpha: 1) 0%, rgba($orange, $alpha: 0.8) 51%, rgba($orange, $alpha: 0.4) 100%);
 //ANIMATIONS
 @keyframes bounceInDown {
   from,

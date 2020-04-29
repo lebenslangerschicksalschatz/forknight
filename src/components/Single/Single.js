@@ -24,13 +24,19 @@ const Single = ({match}) => {
         <div className="single">
             {
                 loading || Object.keys(post).length === 0
-                ? <Loader/>
-                : <div className="wrapper">
-                    <h2 className="single__title">{post.title.rendered}</h2>
-                    <div className="single__img">
-                        <img src={post.featured_image_src} alt="Featured"/>                        
-                    </div>
-                    <div className="single__ingrs">{renderHTML(post.ingredients)}</div>
+                ? <Loader/>                    
+                : <>
+                <div className="single__img">
+                    <img src={post.featured_image_src} alt="Featured"/>  
+                    <div className="single__title">
+                        <h2>{post.title.rendered}</h2>
+                    </div>                      
+                </div>
+                <div className="wrapper">
+                    <div className="single__ingrs">
+                        <span>Інгредієнти:</span>
+                        {renderHTML(post.ingredients)}
+                        </div>
                     <div className="single__content">{renderHTML(post.content.rendered)}</div>
                     <div className="single-slider">
                     {
@@ -43,7 +49,8 @@ const Single = ({match}) => {
                         })
                     }
                     </div>
-                </div>                 
+                </div> 
+                </>                
             }            
         </div>
     )

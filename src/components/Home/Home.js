@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {Link} from "react-router-dom";
 import { WORDPRESS_URL, POSTS_ENDPOINT, POST_ANY } from "../const";
-import Loader from '../Loader';
+import Loader from "../Loader";
+import LikeBtn from "../LikeBtn";
 import Hero from "./Hero";
 
 const Home = () => {
@@ -53,6 +54,7 @@ const Home = () => {
                                 <Link to={`/post/${post.id}`} className="post__overlay">
                                     <img src={post.featured_image_src} alt="Featured" />
                                 </Link>
+                                <LikeBtn />
                             </div>
                             <div className="post__content">
                                 <Link to={`/post/${post.id}`} className="post__title">{post.title.rendered}</Link>

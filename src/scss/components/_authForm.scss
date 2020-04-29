@@ -34,7 +34,7 @@
         top: 0;
         left: 0; 
         transition: opacity .3s ease-in-out;   
-        background: radial-gradient(circle, rgba($orange, $alpha: 0.7) 0%, rgba($orange, $alpha: 0.5) 51%, rgba($orange, $alpha: 0.15) 100%);
+        background: $creamy-bg;
     }
     &__wrap {
         position: relative;
@@ -168,4 +168,15 @@
 .tab.selected {
     background-color: rgba($color: $accent, $alpha: 1.0);
     color: #ffffff;
+}
+
+//signedUp Message
+.signedUp {
+    display: flex;
+    font-family: $secondary;
+    font-size: 18px;
+    font-weight: 600;
+    color: $dark;
+    text-transform: initial;
+    margin: 30px 10px;
 }
