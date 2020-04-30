@@ -80,5 +80,57 @@
             text-indent: 25px;
         }
     }
-    
+}
+// Slick slider
+.sl {
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    margin-bottom: 50px;
+    .slick-list, .slick-track {
+        display: flex;
+        width: 100%;
+    }    
+    .slick-slide {
+        outline: none;
+    }
+    &__item {
+        display: flex !important;
+        align-items: center;
+        cursor: pointer;
+        max-height: 650px;
+        img {
+            object-fit: cover;
+        }
+    }
+}
+
+.sl-nav {
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    margin-bottom: 50px;
+    .slick-list, .slick-track {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .slick-slide {
+        margin: 0 1%;
+        opacity: 0.5;
+        outline: none;
+    }
+    .slick-slide.slick-current {
+        opacity: 1;
+    }
+    &__item {
+        display: flex !important;
+        align-items: center;
+        cursor: pointer;
+        max-height: 200px;     
+        outline: none;   
+        img {
+            object-fit: cover;
+        }
+    }
 }
